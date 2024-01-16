@@ -31,6 +31,7 @@ def get_headers(oversea: bool = False, with_ds: bool = False, *args, **kwargs):
 
 class Client(object):
     def __init__(self, cookie: str = None):
+        self.cookie_origin = cookie
         self.cookie = cookie_to_dict(cookie)
         self.headers = get_headers()
         self._roles_info = None
@@ -74,7 +75,7 @@ class Client(object):
         if not self._rewards_info:
             log.info(_('Preparing to get monthly rewards information ...'))
             url = self.rewards_info_url
-            response = request('get', url).json()
+            response = request('get', url, headers=self.headers).json()
             self._rewards_info = nested_lookup(response, 'awards', fetch_first=True)
         return self._rewards_info
 
@@ -130,10 +131,12 @@ class Client(object):
                     'region': user_data[i]['region'],
                     'uid': user_data[i]['game_uid']
                 }
+                headers = get_headers(with_ds=True)
+                headers['x-rpc-signgame'] = self.headers['x-rpc-signgame']
                 response = request(
                     'post',
                     self.sign_url,
-                    headers=get_headers(with_ds=True),
+                    headers=headers,
                     json=payload, cookies=self.cookie).json()
                 log.debug(response)
                 if response["data"] != "" and response["data"]["success"] == 1:

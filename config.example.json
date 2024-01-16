@@ -1,0 +1,40 @@
+{
+    "LANGUAGE": "zh",
+    "RANDOM_SLEEP_SECS_RANGE": "0-3600",
+    "CHECK_IN_TIME": "09:00",
+    "CHECK_RESIN_SECS": 900,
+    "RESIN_THRESHOLD": 150,
+    "RESIN_TIMER_DO_NOT_DISTURB": "23:00-07:00",
+    "COOKIE_RESIN_TIMER": "",
+    "COOKIE_MIHOYOBBS": "account_id=xxx; cookie_token=xxx",
+    "COOKIE_BH3": "account_id=xxx; cookie_token=xxx",
+    "COOKIE_MIYOUBI": "account_id=xxx; cookie_token=xxx; stuid=xxx; stoken=xxx; login_ticket=xxx",
+    "CLOUD_GENSHIN": [
+      {
+        "x-rpc-combo_token": "ai=xxx;ci=xxx;oi=xxx;ct=xxx;si=xxx;bi=xxx",
+        "x-rpc-client_type": "17",
+        "x-rpc-app_version": "4.3.0",
+        "x-rpc-sys_version": "Mac OS 10.15.7",
+        "x-rpc-channel": "mihoyo",
+        "x-rpc-device_id": "",
+        "x-rpc-device_name": "Apple Macintosh",
+        "x-rpc-device_model": "Macintosh",
+        "x-rpc-app_id": "",
+        "Referer": "https://ys.mihoyo.com",
+        "Host": "api-cloudgame.mihoyo.com",
+        "Connection": "Keep-Alive",
+        "Accept-Encoding": "gzip, deflate, br",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      }
+    ],
+    "COOKIE_HOYOLAB": "",
+    "COOKIE_WEIBO": "aid=xxx; s=xxx; gsid=xxx; from=xxx",
+    "COOKIE_KA": "SUB=xxx; SUBP=xxx",
+    "SHOPTOKEN": "",
+    "ONEPUSH": {
+      "notifier": "bark",
+      "params": {
+        "key": "xxx"
+      }
+    }
+  }

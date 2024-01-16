@@ -15,16 +15,22 @@ from .utils import request, log, nested_lookup, extract_subset_of_dict, merge_di
 class YuanShen(Client):
     def __init__(self, cookie: str = None):
         super().__init__(cookie)
-        self.act_id = 'e202009291139501'
+        self.act_id = 'e202311201442471'
         self.game_biz = 'hk4e_cn'
         self.required_keys.update({
             'total_sign_day', 'today', 'is_sign', 'first_bind',
             'current_primogems', 'current_mora'
         })
 
-        self.sign_info_url = f'{self.api}/event/bbs_sign_reward/info?act_id={self.act_id}' + '&uid={}&region={}'
-        self.rewards_info_url = f'{self.api}/event/bbs_sign_reward/home?act_id={self.act_id}'
-        self.sign_url = f'{self.api}/event/bbs_sign_reward/sign'
+        self.headers.update({
+            "Origin": "https://act.mihoyo.com",
+            "Referer": "https://act.mihoyo.com/",
+            "x-rpc-signgame": "hk4e",
+            })
+
+        self.sign_info_url = f'{self.api}/event/luna/info?lang=zh-cn&act_id={self.act_id}' + '&uid={}&region={}'
+        self.rewards_info_url = f'{self.api}/event/luna/home?lang=zh-cn&act_id={self.act_id}'
+        self.sign_url = f'{self.api}/event/luna/sign'
 
         self._travelers_dairy = None
         self._daily_note = None
@@ -44,6 +50,7 @@ class YuanShen(Client):
     def get_sign_info(self, uid: str, region: str):
         log.info(_('Preparing to get check-in information ...'))
         url = self.sign_info_url.format(uid, region)
+        headers = self.headers
         response = request('get', url, headers=self.headers, cookies=self.cookie).json()
         data = nested_lookup(response, 'data', fetch_first=True)
         return extract_subset_of_dict(data, self.required_keys)
@@ -110,15 +117,21 @@ class YuanShen(Client):
 class Honkai3rd(Client):
     def __init__(self, cookie: str = None):
         super().__init__(cookie)
-        self.act_id = 'e202207181446311'
+        self.act_id = 'e202306201626331'
         self.game_biz = 'bh3_cn'
         self.required_keys.update({
             'total_sign_day', 'today', 'is_sign', 'first_bind',
             'month_hcoin', 'month_star'
         })
 
-        self.sign_info_url = f'{self.api}/event/luna/info?act_id={self.act_id}' + '&uid={}&region={}'
-        self.rewards_info_url = f'{self.api}/event/luna/home?act_id={self.act_id}'
+        self.headers.update({
+            "Origin": "https://act.mihoyo.com",
+            "Referer": "https://act.mihoyo.com/",
+            "x-rpc-signgame": "bh3",
+        })
+
+        self.sign_info_url = f'{self.api}/event/luna/info?lang=zh-cn&act_id={self.act_id}' + '&uid={}&region={}'
+        self.rewards_info_url = f'{self.api}/event/luna/home?lang=zh-cn&act_id={self.act_id}'
         self.sign_url = f'{self.api}/event/luna/sign'
 
         self._bh3_finance = None
